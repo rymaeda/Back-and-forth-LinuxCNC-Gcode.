@@ -7,7 +7,8 @@
 ;
 
 ;
-; Rotina de desbaste
+; Subroutine: rought
+; ************************ outdated!!!!!!!!!!!!!!!!!!!!!!!!
 ;
 o100 sub
    #30 = #6;
@@ -35,16 +36,18 @@ o100 sub
 o100 endsub
 
 ;
-; Subroutine to rought cutting and finishing
+; Subroutine: rought cutting and finishing
 ;
 o200 sub
    #30 = #6 ; #06 = distance to start cutting
-            ; #30 = current distance from finish face
-   #25= [[#3 - #1] / SQRT[[#3 - #1] * [#3 - #1] + [#4 - #2] * [#4 - #2]]]
-   ;Cos(Alpha)= (Bx-Ax)/(SQRT((Bx-Ax)(Bx-Ax) + (By-Ay)*(By-Ay))
+            ; #30 = variable distance from finish face
+;   #23 = SQRT[[#3 - #1] * [#3 - #1] + [#4 - #2] * [#4 - #2]] ; #23 = H: hypotenuse
+   #<hypotenuse> = SQRT[[#3 - #1] * [#3 - #1] + [#4 - #2] * [#4 - #2]] ; #23 = H: hypotenuse
+   #25= [#3 - #1] / #<hypotenuse>
+   ;Cos(Alpha)= (Bx-Ax) / H
    
-   #26= [[#4 - #2] / SQRT[[#3 - #1] * [#3 - #1] + [#4 - #2] * [#4 - #2]]]
-   ;Sin(Alpha)= (By-Ay)/(SQRT((Bx-Ax)(Bx-Ax) + (By-Ay)*(By-Ay))
+   #26= [#4 - #2] / #<hypotenuse>
+   ;Sin(Alpha)= (By-Ay) / H
    
    #21 = [[#1 + [#5 + #6] * #26] - #12 * #25]
    ;Ax'= (Ax + (D+d) * SIN(alpha)) - dA * COS(alpha)
@@ -55,19 +58,21 @@ o200 sub
    G00 z#09 ; #09 = h: clearance height
    G00 x#21 y#22
    G01 z#10 F[#7/2] ; #07 = F: feedrate
+   
+   ;rought cutting
    o201 while [#30 GT #11]
       #21 = [[#1 + [#5 + #30] * #26] - #12 * #25]
-	  ; Ax'= (Ax + D * SIN(alpha)) - dA * COS(alpha)
-	  
+    ; Ax'= (Ax + D * SIN(alpha)) - dA * COS(alpha)
+    
       #22 = [[#2 - [#5 + #30] * #25] - #12 * #26]
-	  ; Ay'= (Ay + D * COS(alpha)) - dA * SIN(alpha)
-	  
+    ; Ay'= (Ay + D * COS(alpha)) - dA * SIN(alpha)
+    
       #23 = [[#3 + [#5 + #30] * #26] + #13 * #25]
-	  ; Bx'= (Bx + D * SIN(alpha)) - dB * COS(alpha)
-	  
+    ; Bx'= (Bx + D * SIN(alpha)) - dB * COS(alpha)
+    
       #24 = [[#4 - [#5 + #30] * #25] + #13 * #26]
-	  ; By'= (Bx + D * COS(alpha)) - dB * SIN(alpha)
-	  
+    ; By'= (Bx + D * COS(alpha)) - dB * SIN(alpha)
+    
       G01 x#21 y#22 ; G01 (Ax',Ay') back
       G01 x#23 y#24 ; G01 (Bx',By') and forth
       G01 x#21 y#22 ; G01 (Ax',Ay') and back
@@ -78,14 +83,24 @@ o200 sub
    
    #22 = [[#2 - [#5 + #11] * #25] - #12 * #26]
    ; Ay'= (Ay + (D + s) * COS(alpha)) - dA * SIN(alpha)
+
+   #21 = [[#1 + [#5 + #11] * #26] - #12 * #25]
+   ; Ax'= (Ax + (D + s) * SIN(alpha)) - dA * COS(alpha)
+   
+   #22 = [[#2 - [#5 + #11] * #25] - #12 * #26]
+   ; Ay'= (Ay + (D + s) * COS(alpha)) - dA * SIN(alpha)
    
    G00 x#21 y#22
    G00 z00
-
-   #21 = [[#1 + #3] / 2 + [#5 + #30 + #8] * #26] ; Mx'= (Ax + Bx) + D * SIN(alpha)
-   #22 = [[#2 + #4] / 2 - [#5 + #30 + #8] * #25] ; My'= (Ay + By) + D * COS(alpha)
-   #23 = SQRT[[#3 - #1] * [#3 - #1] + [#4 - #2] * [#4 - #2]]
-   #24 = -[[#5 / 2] * [1 - SQRT[1 - #23 * #23 / #5 / #5]]] ; calculo da flexa
+   ;finishing
+   #21 = [[#1 + #3] / 2 + [#5 + #11] * #26]
+   ; Mx'= (Ax + Bx) / 2 + (D + s) * SIN(alpha)
+   
+   #22 = [[#2 + #4] / 2 - [#5 + #11] * #25]
+   ; My'= (Ay + By) / 2 - (D + s) * COS(alpha)
+      
+   #24 = -[[#5 / 2] * [1 - SQRT[1 - #<hypotenuse> * #<hypotenuse> / #5 / #5]]] ; (-1)*sagitta calculation
+   
    G01 x#21 y#22
    o203 while [#30 GE #24]
       #21 = [[#1 + #3] / 2 + [#5 + #30] * #26] ; Ax'= Ax + D * SIN(alpha)
@@ -103,34 +118,53 @@ o200 sub
 o200 endsub
 
 G21 G90
-T1
+T03
 
-#100= -0.07 ; Ax coordenada x do ponto A (#1)
-#101= 0.072 ; Ay coordenada y do ponto A (#2)
-#102= -0.13 ; Bx coordenada x do ponto B (#3)
-#103= 0.0   ; By coordenada y do ponto B (#4)
-#104= 10    ; D  diametro da ferramenta (#5)
-#105= 0.15  ; d  distancia do material a ser usinado(#6)
-#106= 80.0  ; F  velocidade de avanco (#7)
-#107= 0.02  ; i  avanco de corte(#8)
-#108= y     ; h  altura de movimentacao da ferramenta(#9)
-#109= -0.8  ; g  profundidade da usinagem(#10)
-#110= 0.1   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
-#111= 2.0   ; dA movimento lado ponto A (#12)
+#100= 2     ; Ax coordenada x do ponto A (#1)
+#101= 2     ; Ay coordenada y do ponto A (#2)
+#102= 2.5   ; Bx coordenada x do ponto B (#3)
+#103= 5     ; By coordenada y do ponto B (#4)
+#104= 40    ; D  diametro da ferramenta (#5)
+#105= 1     ; d  distancia do material a ser usinado(#6)
+#106= 500   ; F  velocidade de avanco (#7)
+#107= 0.1   ; i  avanco de corte(#8)
+#108= 2     ; h  altura de movimentacao da ferramenta(#9)
+#109= -0.7  ; g  profundidade da usinagem(#10)
+#110= 0.5   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
+#111= 0.0   ; dA movimento lado ponto A (#12)
 #112= 0.5   ; dB movimento lado ponto B (#13)
 
 ;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
 o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
 
+#100= -0.07 ; Ax coordenada x do ponto A (#1)
+#101= 0.072 ; Ay coordenada y do ponto A (#2)
+#102= -0.13 ; Bx coordenada x do ponto B (#3)
+#103= 0.0   ; By coordenada y do ponto B (#4)
+#104= 40    ; D  diametro da ferramenta (#5)
+#105= 0.25  ; d  distancia do material a ser usinado(#6)
+#106= 80.0  ; F  velocidade de avanco (#7)
+#107= 0.05  ; i  avanco de corte(#8)
+#108= 5     ; h  altura de movimentacao da ferramenta(#9)
+#109= -0.8  ; g  profundidade da usinagem(#10)
+#110= 0.1   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
+#111= 0.0   ; dA movimento lado ponto A (#12)
+#112= 0.0   ; dB movimento lado ponto B (#13)
+
+;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
+o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
+
+m2
+
 #100= -0.13 ; Ax coordenada x do ponto A (#1)
 #101= 0.0   ; Ay coordenada y do ponto A (#2)
 #102= 0.085 ; Bx coordenada x do ponto B (#3)
 #103= 0.018 ; By coordenada y do ponto B (#4)
-#104= x     ; D  diametro da ferramenta (#5)
-#105= 0.1  ; d  distancia do material a ser usinado(#6)
+#104= 20   ; D  diametro da ferramenta (#5)
+#105= 0.1   ; d  distancia do material a ser usinado(#6)
 #106= 80.0  ; F  velocidade de avanco (#7)
 #107= 0.02  ; i  profundidade de corte(#8)
-#108= y     ; h  altura de movimentacao da ferramenta(#9)
+#108= 0     ; h  altura de movimentacao da ferramenta(#9)
 #109= -1.2  ; g  profundidade da usinagem(#10)
 #110= 0.1   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
 #111= 2.0   ; dA movimento lado ponto A (#12)
@@ -143,10 +177,10 @@ o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] 
 #101= 0.018 ; Ay coordenada y do ponto A (#2)
 #102= 0.023 ; Bx coordenada x do ponto B (#3)
 #103= 0.097 ; By coordenada y do ponto B (#4)
-#104= x     ; D  diametro da ferramenta (#5)
+#104= 30    ; D  diametro da ferramenta (#5)
 #105= 0.1   ; d  distancia do material a ser usinado(#6)
 #106= 500   ; F  velocidade de avanco (#7)
-#107= 0.02  ; i  profundidade de corte(#8)
+#107= 0.2  ; i  avanco de corte(#8)
 #108= 2     ; h  altura de movimentacao da ferramenta(#9)
 #109= -0.7  ; g  profundidade da usinagem(#10)
 #110= 0.1   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
@@ -160,10 +194,10 @@ o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] 
 #101= 0.097 ; Ay coordenada y do ponto A (#2)
 #102= -0.07 ; Bx coordenada x do ponto B (#3)
 #103= 0.072 ; By coordenada y do ponto B (#4)
-#104= x     ; D  diametro da ferramenta (#5)
+#104= 100   ; D  diametro da ferramenta (#5)
 #105= 0.1   ; d  distancia do material a ser usinado(#6)
 #106= 500   ; F  velocidade de avanco (#7)
-#107= 0.02  ; i  profundidade de corte(#8)
+#107= 0.02  ; i  avanco de corte(#8)
 #108= 2     ; h  altura de movimentacao da ferramenta(#9)
 #109= -0.7  ; g  profundidade da usinagem(#10)
 #110= 0.1   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)

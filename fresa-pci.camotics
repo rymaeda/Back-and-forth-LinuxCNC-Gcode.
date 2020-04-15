@@ -1,0 +1,39 @@
+{
+      "units": "metric",
+      "resolution-mode": "medium",
+      "resolution": 1,
+      "tools": {
+        "1": {
+          "units": "metric",
+          "shape": "cylindrical",
+          "length": 10,
+          "diameter": 0.3,
+          "description": "V Cutter0.30"
+        },
+        "2": {
+          "units": "metric",
+          "shape": "cylindrical",
+          "length": 10.000486,
+          "diameter": 3.175,
+          "description": "Endmill3.175"
+        },
+        "5": {
+          "units": "metric",
+          "shape": "cylindrical",
+          "length": 1,
+          "diameter": 40,
+          "description": "Cutter disk40mm"
+        }
+      },
+      "workpiece": {
+        "automatic": true,
+        "margin": 5,
+        "bounds": {
+          "min": [-34.919669, -6.434348, -2.94],
+          "max": [46.893113, 27.533411, 0]
+        }
+      },
+      "files": [
+        "fresa-pci.ngc"
+      ]
+    }

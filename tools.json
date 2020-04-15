@@ -1,0 +1,23 @@
+{
+  "1": {
+    "units": "metric",
+    "shape": "cylindrical",
+    "length": 10,
+    "diameter": 0.3,
+    "description": "V Cutter0.30"
+  },
+  "2": {
+    "units": "metric",
+    "shape": "cylindrical",
+    "length": 10.000486,
+    "diameter": 3.175,
+    "description": "Endmill3.175"
+  },
+  "13": {
+    "units": "metric",
+    "shape": "cylindrical",
+    "length": 1,
+    "diameter": 80,
+    "description": "Cutter disk80mm"
+  }
+}
