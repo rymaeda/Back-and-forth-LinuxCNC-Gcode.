@@ -83,6 +83,7 @@ o200 sub
 o200 endsub
 
 G21 G90
+T1
 
 #100= 2     ; Ax coordenada x do ponto A (#1)
 #101= 2     ; Ay coordenada y do ponto A (#2)
@@ -130,7 +131,7 @@ o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] 
 #109= -0.7  ; g  profundidade da usinagem(#10)
 #110= 0.5   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
 #111= 0.3   ; dA movimento lado ponto A (#12)
-#112= 0.3     ; dB movimento lado ponto B (#13)
+#112= 0.3   ; dB movimento lado ponto B (#13)
 
 ;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
 o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
