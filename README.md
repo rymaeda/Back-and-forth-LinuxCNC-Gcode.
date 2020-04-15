@@ -6,7 +6,7 @@ I started this 'cause I intend to make GCode to alternated movements with in-loc
 
 One big thanks to Joseph by Camotics tools, which make the things easier.
 
-Follow one image captured in Camotics.
+Follow one image captured in Camotics.https://camotics.org/
 
 ![image](https://github.com/rymaeda/fresa-para-pci/blob/master/fresa-pci.png)
 
