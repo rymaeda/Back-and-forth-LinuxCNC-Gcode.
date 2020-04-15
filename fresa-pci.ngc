@@ -129,13 +129,14 @@ T03
 #106= 500   ; F  velocidade de avanco (#7)
 #107= 0.1   ; i  avanco de corte(#8)
 #108= 2     ; h  altura de movimentacao da ferramenta(#9)
-#109= -0.7  ; g  profundidade da usinagem(#10)
+#109= -0.2  ; g  profundidade da usinagem(#10)
 #110= 0.5   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
 #111= 0.0   ; dA movimento lado ponto A (#12)
 #112= 0.5   ; dB movimento lado ponto B (#13)
 
 ;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
 o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
+m2; ; ************************************ END OF PROGRAM ************************
 
 #100= -0.07 ; Ax coordenada x do ponto A (#1)
 #101= 0.072 ; Ay coordenada y do ponto A (#2)
@@ -146,15 +147,13 @@ o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] 
 #106= 80.0  ; F  velocidade de avanco (#7)
 #107= 0.05  ; i  avanco de corte(#8)
 #108= 5     ; h  altura de movimentacao da ferramenta(#9)
-#109= -0.8  ; g  profundidade da usinagem(#10)
+#109= -0.2  ; g  profundidade da usinagem(#10)
 #110= 0.1   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
 #111= 0.0   ; dA movimento lado ponto A (#12)
 #112= 0.0   ; dB movimento lado ponto B (#13)
 
 ;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
 o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
-
-m2
 
 #100= -0.13 ; Ax coordenada x do ponto A (#1)
 #101= 0.0   ; Ay coordenada y do ponto A (#2)
@@ -189,6 +188,8 @@ o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] 
 
 ;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
 o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
+
+m2 
 
 #100= 0.023 ; Ax coordenada x do ponto A (#1)
 #101= 0.097 ; Ay coordenada y do ponto A (#2)
