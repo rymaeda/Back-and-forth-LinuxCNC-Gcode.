@@ -9,3 +9,5 @@ One big thanks to Joseph by Camotics tools, which make the things easier.
 Follow one image captured in Camotics.
 
 ![image](https://github.com/rymaeda/fresa-para-pci/blob/master/fresa-pci.png)
+
+Obs.: I pretend to use big diameters (100mm) cutters tools but stumbled in this simulation on Camotics.
