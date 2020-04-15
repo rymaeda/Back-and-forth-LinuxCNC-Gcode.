@@ -1,4 +1,4 @@
-# fresa-para-pci
+# Back-and-forth parametric LinuxCNC Gcode.
 
 This is a little G-code subroutine to make some particular movements on LinuxCNC dialect.
 
