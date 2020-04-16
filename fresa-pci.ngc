@@ -120,29 +120,32 @@ o200 endsub
 G21 G90
 T03
 
-#100= 2     ; Ax coordenada x do ponto A (#1)
-#101= 2     ; Ay coordenada y do ponto A (#2)
-#102= 2.5   ; Bx coordenada x do ponto B (#3)
-#103= 5     ; By coordenada y do ponto B (#4)
-#104= 40    ; D  diametro da ferramenta (#5)
-#105= 1     ; d  distancia do material a ser usinado(#6)
-#106= 500   ; F  velocidade de avanco (#7)
-#107= 0.1   ; i  avanco de corte(#8)
-#108= 2     ; h  altura de movimentacao da ferramenta(#9)
-#109= -0.2  ; g  profundidade da usinagem(#10)
-#110= 0.5   ; s  sobrematerial entre as fases de desbaste e acabamento (#11)
-#111= 0.0   ; dA movimento lado ponto A (#12)
-#112= 0.5   ; dB movimento lado ponto B (#13)
+; tarzan like comments
+#100= 2     ; Ax: coordenate x, point A (#1)
+#101= 2     ; Ay: coordenate y, point A (#2)
+#102= 2.5   ; Bx: coordenate x, do point B (#3)
+#103= 5     ; By: coordenate y, point B (#4)
+#104= 10    ; D:  cutter diameter (#5)
+#105= 1     ; d: start milling distance  (#6)
+#106= 500   ; F:  feedrate (#7)
+#107= 0.1   ; i: stepover distance (#8)
+#108= 2     ; h:  clearance heightn(#9)
+#109= -0.2  ; g: depth of cut (#10)
+#110= 0.5   ; s: minimal distance to finish phase  (#11)
+#111= 0.0   ; dA: over movement side point A (#12)
+#112= 0.5   ; dB: over movement side point B (#13)
 
 ;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
 o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
-m2; ; ************************************ END OF PROGRAM ************************
 
+m2; ************************************ END OF PROGRAM ************************
+
+; comentarios em portugues-br
 #100= -0.07 ; Ax coordenada x do ponto A (#1)
 #101= 0.072 ; Ay coordenada y do ponto A (#2)
 #102= -0.13 ; Bx coordenada x do ponto B (#3)
 #103= 0.0   ; By coordenada y do ponto B (#4)
-#104= 40    ; D  diametro da ferramenta (#5)
+#104= 10    ; D  diametro da ferramenta (#5)
 #105= 0.25  ; d  distancia do material a ser usinado(#6)
 #106= 80.0  ; F  velocidade de avanco (#7)
 #107= 0.05  ; i  avanco de corte(#8)
@@ -154,7 +157,7 @@ m2; ; ************************************ END OF PROGRAM **********************
 
 ;o100 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109]
 o200 call [#100] [#101] [#102] [#103] [#104] [#105] [#106] [#107] [#108] [#109] [#110] [#111] [#112]
-
+m2
 #100= -0.13 ; Ax coordenada x do ponto A (#1)
 #101= 0.0   ; Ay coordenada y do ponto A (#2)
 #102= 0.085 ; Bx coordenada x do ponto B (#3)
