@@ -4,6 +4,8 @@ This is a little G-code subroutine to make some particular movements on LinuxCNC
 
 I started this because I intend to make GCode to alternated movements with in-loco manual editing, so the approach was parametric programming with setable variables and subroutines calls.
 
+This GCode use conventional milling, i.e. not climbing milling.
+
 One big thanks to Joseph  by Camotics simulator, that make the things a lot easier.
 
 Follow one image captured in Camotics.https://camotics.org/

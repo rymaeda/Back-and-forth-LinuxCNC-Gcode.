@@ -118,7 +118,7 @@ o200 sub
 o200 endsub
 
 G21 G90
-T03
+T05
 
 ; tarzan like comments
 #100= 2     ; Ax: coordenate x, point A (#1)
@@ -127,7 +127,7 @@ T03
 #103= 5     ; By: coordenate y, point B (#4)
 #104= 10    ; D:  cutter diameter (#5)
 #105= 1     ; d: start milling distance  (#6)
-#106= 500   ; F:  feedrate (#7)
+#106= 100   ; F:  feedrate (#7)
 #107= 0.1   ; i: stepover distance (#8)
 #108= 2     ; h:  clearance heightn(#9)
 #109= -0.2  ; g: depth of cut (#10)
